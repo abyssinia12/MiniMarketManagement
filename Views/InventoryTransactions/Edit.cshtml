@@ -1,0 +1,84 @@
+﻿@model MiniMarket.Models.InventoryTransaction
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>InventoryTransaction</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="BatchId" class="control-label"></label>
+                <select asp-for="BatchId" class="form-control" asp-items="ViewBag.BatchId"></select>
+                <span asp-validation-for="BatchId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LocationId" class="control-label"></label>
+                <select asp-for="LocationId" class="form-control" asp-items="ViewBag.LocationId"></select>
+                <span asp-validation-for="LocationId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UserId" class="control-label"></label>
+                <select asp-for="UserId" class="form-control" asp-items="ViewBag.UserId"></select>
+                <span asp-validation-for="UserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransactionType" class="control-label"></label>
+                <input asp-for="TransactionType" class="form-control" />
+                <span asp-validation-for="TransactionType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantityIn" class="control-label"></label>
+                <input asp-for="QuantityIn" class="form-control" />
+                <span asp-validation-for="QuantityIn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="QuantityOut" class="control-label"></label>
+                <input asp-for="QuantityOut" class="form-control" />
+                <span asp-validation-for="QuantityOut" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReferenceType" class="control-label"></label>
+                <input asp-for="ReferenceType" class="form-control" />
+                <span asp-validation-for="ReferenceType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReferenceId" class="control-label"></label>
+                <input asp-for="ReferenceId" class="form-control" />
+                <span asp-validation-for="ReferenceId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransactionDate" class="control-label"></label>
+                <input asp-for="TransactionDate" class="form-control" />
+                <span asp-validation-for="TransactionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsDelete" /> @Html.DisplayNameFor(model => model.IsDelete)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
