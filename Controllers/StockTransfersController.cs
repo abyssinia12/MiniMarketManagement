@@ -49,9 +49,9 @@ namespace MiniMarket.Controllers
         // GET: StockTransfers/Create
         public IActionResult Create()
         {
-            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id");
-            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name");
+            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username");
             return View();
         }
 
@@ -68,9 +68,9 @@ namespace MiniMarket.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id", stockTransfer.FromLocationId);
-            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id", stockTransfer.ToLocationId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stockTransfer.UserId);
+            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name", stockTransfer.FromLocationId);
+            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name", stockTransfer.ToLocationId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username", stockTransfer.UserId);
             return View(stockTransfer);
         }
 
@@ -87,9 +87,9 @@ namespace MiniMarket.Controllers
             {
                 return NotFound();
             }
-            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id", stockTransfer.FromLocationId);
-            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id", stockTransfer.ToLocationId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stockTransfer.UserId);
+            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name", stockTransfer.FromLocationId);
+            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name", stockTransfer.ToLocationId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username", stockTransfer.UserId);
             return View(stockTransfer);
         }
 
@@ -125,9 +125,9 @@ namespace MiniMarket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id", stockTransfer.FromLocationId);
-            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Id", stockTransfer.ToLocationId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", stockTransfer.UserId);
+            ViewData["FromLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name", stockTransfer.FromLocationId);
+            ViewData["ToLocationId"] = new SelectList(_context.StorageLocations, "Id", "Name", stockTransfer.ToLocationId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username", stockTransfer.UserId);
             return View(stockTransfer);
         }
 
