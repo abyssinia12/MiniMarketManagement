@@ -97,7 +97,7 @@ namespace MiniMarket.Controllers
                 await _context.SaveChangesAsync();
 
                 TempData["SuccessMessage"] = $"Product '{product.Name}' was successfully created!";
-                return RedirectToAction(nameof(Details), new { id = product.Id });
+                return RedirectToAction(nameof(Index), new { id = product.Id });
             }
 
             ViewData["CategoryId"] = new SelectList(

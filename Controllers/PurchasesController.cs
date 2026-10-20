@@ -64,6 +64,7 @@ namespace MiniMarket.Controllers
         {
             if (ModelState.IsValid)
             {
+                purchase.IsActive = true;
                 _context.Add(purchase);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -73,9 +74,23 @@ namespace MiniMarket.Controllers
             ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username", purchase.UserId);
             return View(purchase);
         }
+               
 
-        // GET: Purchases/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+    //    TempData["SuccessMessage"] = $"Product '{product.Name}' was successfully created!";
+    //            return RedirectToAction(nameof(Index), new { id = product.Id
+    //});
+    //        }
+
+//ViewData["CategoryId"] = new SelectList(
+//    _context.Categories.Where(c => c.IsActive && !c.IsDelete),
+//    "Id",
+//    "Name",
+//    product.CategoryId
+//);
+
+
+// GET: Purchases/Edit/5
+public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
