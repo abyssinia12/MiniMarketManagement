@@ -69,9 +69,9 @@ namespace MiniMarket.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", purchase.ProductId);
-            ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", purchase.SupplierId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Username", purchase.UserId);
+            ViewData["ProductId"] = new SelectList(_context.Products.Where(c => c.IsActive && !c.IsDelete), "Id", "Name", purchase.ProductId);
+            ViewData["SupplierId"] = new SelectList(_context.Suppliers.Where(c => c.IsActive && !c.IsDelete), "Id", "Name", purchase.SupplierId);
+            ViewData["UserId"] = new SelectList(_context.Users.Where(c => c.IsActive && !c.IsDelete), "Id", "Username", purchase.UserId);
             return View(purchase);
         }
                
