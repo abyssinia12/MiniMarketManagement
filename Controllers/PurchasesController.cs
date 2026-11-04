@@ -51,7 +51,7 @@ namespace MiniMarket.Controllers
         {
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name");
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name");
             return View();
         }
 
@@ -70,7 +70,7 @@ namespace MiniMarket.Controllers
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", purchase.ProductId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", purchase.SupplierId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", purchase.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", purchase.UserId);
             return View(purchase);
         }
 
@@ -89,7 +89,7 @@ namespace MiniMarket.Controllers
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", purchase.ProductId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", purchase.SupplierId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", purchase.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", purchase.UserId);
             return View(purchase);
         }
 
@@ -127,7 +127,7 @@ namespace MiniMarket.Controllers
             }
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", purchase.ProductId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers, "Id", "Name", purchase.SupplierId);
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", purchase.UserId);
+            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name", purchase.UserId);
             return View(purchase);
         }
 
