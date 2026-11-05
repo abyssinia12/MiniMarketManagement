@@ -48,7 +48,7 @@ namespace MiniMarket.Controllers
         // GET: ProductBatches/Create
         public IActionResult Create()
         {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id");
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id");
             return View();
         }
@@ -66,7 +66,7 @@ namespace MiniMarket.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productBatch.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productBatch.ProductId);
             ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id", productBatch.PurchaseId);
             return View(productBatch);
         }
@@ -84,7 +84,7 @@ namespace MiniMarket.Controllers
             {
                 return NotFound();
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productBatch.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productBatch.ProductId);
             ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id", productBatch.PurchaseId);
             return View(productBatch);
         }
@@ -121,7 +121,7 @@ namespace MiniMarket.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Id", productBatch.ProductId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productBatch.ProductId);
             ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id", productBatch.PurchaseId);
             return View(productBatch);
         }
