@@ -16,17 +16,17 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4 col-md-8 col-lg-6">
         <div>
-            <h2 class="fw-bold">Product Details</h2>
+            <h2 >Product Details</h2>
            
         </div>
         <div>
-            <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
-            <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
+            <a asp-action="Edit" asp-route-id="@Model?.Id" >Edit</a>
+            <a asp-action="Index" >Back to List</a>
         </div>
     </div>
 
-    <div class="card shadow-sm border-0 col-md-8 col-lg-6">
-        <div class="card-body p-4">
+    <div >
+        <div >
             <dl class="row mb-0">
                 <dt class="col-sm-4 text-muted">ID</dt>
                 <dd class="col-sm-8 fw-semibold">@Model.Id</dd>
@@ -47,18 +47,18 @@
                 <dd class="col-sm-8">
                     @if (Model.IsActive && !Model.IsDelete)
                     {
-                        <span class="badge bg-success">Active</span>
+                        <span >Active</span>
                     }
                     else
                     {
-                        <span class="badge bg-secondary">Inactive</span>
+                        <span>Inactive</span>
                     }
                 </dd>
             </dl>
         </div>
         <div class="card-footer bg-light px-4 py-3 d-flex justify-content-between">
           
-            <a asp-action="Index" class="btn btn-sm btn-secondary">Go to Product List</a>
+            <a asp-action="Index">Go to Product List</a>
         </div>
     </div>
 </div>
