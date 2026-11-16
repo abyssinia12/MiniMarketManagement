@@ -5,14 +5,14 @@
 }
 
 <div class="container-fluid py-4">
-    @if (TempData["SuccessMessage"] != null)
+  @*   @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show col-md-8 col-lg-6" role="alert">
             <i class="bi bi-check-circle me-1"></i>
             @TempData["SuccessMessage"]
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
-    }
+    } *@
 
     <div class="d-flex justify-content-between align-items-center mb-4 col-md-8 col-lg-6">
         <div>
@@ -57,7 +57,7 @@
             </dl>
         </div>
         <div class="card-footer bg-light px-4 py-3 d-flex justify-content-between">
-            <a asp-action="Create" class="btn btn-sm btn-outline-primary">+ Create Another Product</a>
+          
             <a asp-action="Index" class="btn btn-sm btn-secondary">Go to Product List</a>
         </div>
     </div>
