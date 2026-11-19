@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -86,12 +86,18 @@ namespace MiniMarket.Controllers
         public async Task<IActionResult> Create(
             [Bind("Id,CategoryId,Barcode,Name,Description,IsActive,IsDelete")] Product product)
         {
+            // Remove Category navigation property from ModelState validation
+            ModelState.Remove("Category");
+
             if (ModelState.IsValid)
             {
+                // Ensure default active state if desired
+                product.IsActive = true;
                 _context.Add(product);
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction(nameof(Index));
+                TempData["SuccessMessage"] = $"Product '{product.Name}' was successfully created!";
+                return RedirectToAction(nameof(Details), new { id = product.Id });
             }
 
             ViewData["CategoryId"] = new SelectList(
@@ -139,6 +145,8 @@ namespace MiniMarket.Controllers
             {
                 return NotFound();
             }
+
+            ModelState.Remove("Category");
 
             if (ModelState.IsValid)
             {
