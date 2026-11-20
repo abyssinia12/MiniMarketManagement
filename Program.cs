@@ -1,8 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using MiniMarket.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDbContext<DBContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
