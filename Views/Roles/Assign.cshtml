@@ -1,0 +1,158 @@
+﻿@model MiniMarket.Models.ViewModels.AssignUserRolesViewModel
+
+@{
+    ViewData["Title"] = "Assign User Roles";
+}
+
+<div class="container-fluid py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold">User Role Assignment</h2>
+            <p class="text-muted">
+                Manage user roles and system access permissions.
+            </p>
+        </div>
+
+        <a asp-controller="Users"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Back to Users
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+
+        <div class="card-header bg-white py-3">
+            <h5 class="mb-0">Assign Roles to User</h5>
+        </div>
+
+        <div class="card-body p-4">
+
+            <form asp-controller="UserRoles"
+                  asp-action="Assign"
+                  method="post">
+
+                @Html.AntiForgeryToken()
+
+                <div asp-validation-summary="ModelOnly"
+                     class="text-danger mb-3">
+                </div>
+
+                <!-- SELECT USER -->
+                <div class="mb-4">
+
+                    <label asp-for="UserId"
+                           class="form-label fw-semibold">
+                        Select User
+                    </label>
+
+                    <select asp-for="UserId"
+                            asp-items="Model.Users"
+                            class="form-select">
+
+                        <option value="">
+                            -- Select User --
+                        </option>
+
+                    </select>
+
+                    <span asp-validation-for="UserId"
+                          class="text-danger">
+                    </span>
+
+                </div>
+
+                <hr />
+
+                <!-- AVAILABLE ROLES -->
+                <h5 class="fw-semibold mb-3">
+                    Available Roles
+                </h5>
+
+                <p class="text-muted small">
+                    Select one or multiple roles for this user.
+                </p>
+
+                <div class="row">
+
+                    @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                        var role = Model.Roles[i];
+
+                        <div class="col-md-6 mb-3">
+
+                            <div class="card h-100 border">
+
+                                <div class="card-body">
+
+                                    <div class="form-check">
+
+                                        @if (role.IsSelected)
+                                        {
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="SelectedRoleIds"
+                                                   value="@role.Id"
+                                                   id="role_@role.Id"
+                                                   checked />
+                                        }
+                                        else
+                                        {
+                                            <input type="checkbox"
+                                                   class="form-check-input"
+                                                   name="SelectedRoleIds"
+                                                   value="@role.Id"
+                                                   id="role_@role.Id" />
+                                        }
+
+                                        <label class="form-check-label fw-semibold"
+                                               for="role_@role.Id">
+                                            @role.RoleName
+                                        </label>
+
+                                    </div>
+
+                                    <p class="text-muted small mt-2 mb-0">
+                                        @role.Description
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+                <hr />
+
+                <!-- ACTION BUTTONS -->
+                <div class="d-flex justify-content-end gap-2">
+
+                    <a asp-controller="Users"
+                       asp-action="Index"
+                       class="btn btn-light border">
+                        Cancel
+                    </a>
+
+                    <button type="submit"
+                            class="btn btn-primary px-4">
+                        <i class="bi bi-shield-check me-1"></i>
+                        Assign Roles
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
