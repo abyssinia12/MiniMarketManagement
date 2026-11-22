@@ -118,5 +118,31 @@ namespace MiniMarket.Controllers
 
             return RedirectToAction(nameof(Assign), new { userId = model.UserId });
         }
+
+
+
+        //new
+
+        [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var model = await _context.Users
+                .Select(u => new UserRoleListViewModel
+                {
+                    UserId = u.Id,
+                    FullName = u.FullName,
+                    Username = u.Username,
+                    AssignedRoles = u.Roles.Select(r => r.RoleName).ToList()
+                })
+                .ToListAsync();
+
+            return View("~/Views/Roles/UserRoleList.cshtml", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserRoleList()
+        {
+            return await Index();
+        }
     }
 }

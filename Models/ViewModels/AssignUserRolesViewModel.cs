@@ -14,6 +14,9 @@ namespace MiniMarket.Models.ViewModels
         public List<SelectListItem> Users { get; set; } = new();
 
         public List<RoleOptionViewModel> Roles { get; set; } = new();
+
+        // List of users and their assigned roles
+        //public List<UserRoleListViewModel> UserRoleList { get; set; } = new();
     }
 
     public class RoleOptionViewModel
