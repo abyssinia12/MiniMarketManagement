@@ -16,6 +16,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.ManufacturedDate)
             </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.QuantityReceived)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.ExpireDate)
             </th>
@@ -42,6 +46,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ManufacturedDate)
+            </td>
+                
+            <td>
+                @Html.DisplayFor(modelItem => item.QuantityReceived)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ExpireDate)

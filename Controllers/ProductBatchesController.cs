@@ -48,7 +48,7 @@ namespace MiniMarket.Controllers
         // GET: ProductBatches/Create
         public IActionResult Create()
         {
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
+            //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
             ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id");
             return View();
         }
@@ -58,16 +58,76 @@ namespace MiniMarket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ProductId,PurchaseId,BatchNumber,ManufacturedDate,ExpireDate,IsActive,IsDelete")] ProductBatch productBatch)
+        public async Task<IActionResult> Create([Bind("Id,PurchaseId,BatchNumber,ManufacturedDate,ExpireDate")] ProductBatch productBatch)
         {
+            // Navigation properties are loaded by EF, not submitted by the form.
+            ModelState.Remove(nameof(ProductBatch.Product));
+            ModelState.Remove(nameof(ProductBatch.Purchase));
+
+            // Find the selected purchase
+            var purchase = await _context.Purchases
+                .FirstOrDefaultAsync(p =>
+                    p.Id == productBatch.PurchaseId &&
+                    p.IsActive &&
+                    !p.IsDelete);
+
+            if (purchase == null)
+            {
+                ModelState.AddModelError("PurchaseId", "Purchase not found.");
+            }
+            else
+            {
+                // Automatically retrieve purchase information
+                productBatch.ProductId = purchase.ProductId;
+                productBatch.QuantityReceived = purchase.Quantity;
+
+                productBatch.IsActive = true;
+                productBatch.IsDelete = false;
+            }
+
+
+            //  Validate remaining purchase quantity
+            //if (existingBatchQuantity + productBatch.QuantityReceived
+            //    > purchase.Quantity)
+            //{
+            //    ModelState.AddModelError(
+            //        "QuantityReceived",
+            //        "Batch quantity cannot exceed the remaining purchase quantity."
+            //    );
+            //}
+            var existingBatchQuantity = await _context.ProductBatches
+                    .Where(b => b.PurchaseId == productBatch.PurchaseId
+                                && b.IsActive
+                                && !b.IsDelete)
+                    .SumAsync(b => (decimal?)b.QuantityReceived) ?? 0;
+
+            if (existingBatchQuantity + productBatch.QuantityReceived
+                > purchase.Quantity)
+            {
+                ModelState.AddModelError(
+                    "QuantityReceived",
+                    "Batch quantity cannot exceed the remaining purchase quantity."
+                );
+            }
+
+
             if (ModelState.IsValid)
             {
-                _context.Add(productBatch);
+                productBatch.IsActive = true;
+                productBatch.IsDelete = false;
+
+                _context.ProductBatches.Add(productBatch);
+                //_context.Add(productBatch);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", productBatch.ProductId);
-            ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id", productBatch.PurchaseId);
+                ViewData["PurchaseId"] = new SelectList(
+             _context.Purchases
+                 .Where(p => p.IsActive && !p.IsDelete),
+                         "Id",
+                         "Id",
+                         productBatch.PurchaseId
+                    );
             return View(productBatch);
         }
 

@@ -12,6 +12,10 @@ public partial class Purchase
     [Key]
     public int Id { get; set; }
 
+    [Column("Purchase_reference")]
+    [StringLength(50)]
+    public string? PurchaseReference { get; set; }
+
     [Column("Supplier_id")]
     public int SupplierId { get; set; }
 
