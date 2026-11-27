@@ -60,7 +60,7 @@ namespace MiniMarket.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,SupplierId,UserId,ProductId,Quantity,UnitCost,AmountPaid")] Purchase purchase)
+        public async Task<IActionResult> Create([Bind("Id,PurchaseReference,SupplierId,UserId,ProductId,Quantity,UnitCost,AmountPaid")] Purchase purchase)
         {
 
             // Remove validation errors for properties
@@ -114,9 +114,12 @@ namespace MiniMarket.Controllers
                 Console.WriteLine(error.ErrorMessage);
             }
 
+
             ViewData["ProductId"] = new SelectList(_context.Products.Where(c => c.IsActive && !c.IsDelete), "Id", "Name", purchase.ProductId);
             ViewData["SupplierId"] = new SelectList(_context.Suppliers.Where(c => c.IsActive && !c.IsDelete), "Id", "Name", purchase.SupplierId);
             ViewData["UserId"] = new SelectList(_context.Users.Where(c => c.IsActive && !c.IsDelete), "Id", "Username", purchase.UserId);
+
+
             return View(purchase);
         }
                

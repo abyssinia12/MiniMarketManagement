@@ -49,7 +49,7 @@ namespace MiniMarket.Controllers
         public IActionResult Create()
         {
             //ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name");
-            ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "Id");
+            ViewData["PurchaseId"] = new SelectList(_context.Purchases, "Id", "PurchaseReference");
             return View();
         }
 
@@ -125,7 +125,7 @@ namespace MiniMarket.Controllers
              _context.Purchases
                  .Where(p => p.IsActive && !p.IsDelete),
                          "Id",
-                         "Id",
+                         "PurchaseReference",
                          productBatch.PurchaseId
                     );
             return View(productBatch);
