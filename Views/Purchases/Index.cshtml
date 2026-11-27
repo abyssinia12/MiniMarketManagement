@@ -75,8 +75,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.PaymentStatus)
             </td> 
-           <td>
-                @Html.DisplayFor(modelItem => item.PurchaseReference)
+                <td>
+                    @(string.IsNullOrEmpty(item.PurchaseReference)
+                                    ? "N/A"
+                                    : item.PurchaseReference)
             </td>
                 
            @*  <td>

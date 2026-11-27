@@ -33,7 +33,7 @@
                 @Html.DisplayNameFor(model => model.Product)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Purchase)
+                @Html.DisplayNameFor(model => model.Purchase.PurchaseReference)
             </th>
             <th></th>
         </tr>
@@ -63,8 +63,11 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Product.Name)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Purchase.Id)
+                
+                <td>
+                    @(string.IsNullOrEmpty(item.Purchase.PurchaseReference)
+                                    ? "N/A"
+                                    : item.Purchase.PurchaseReference)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
